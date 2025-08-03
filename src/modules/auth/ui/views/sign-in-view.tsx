@@ -1,11 +1,12 @@
 'use client';
 
 import { z } from 'zod';
-import { Facebook, Github, Mail, OctagonAlertIcon } from 'lucide-react';
+import { OctagonAlertIcon } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertTitle } from '@/components/ui/alert';
 import { Card, CardContent } from '@/components/ui/card';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 import {
   Form,
   FormControl,
@@ -145,17 +146,27 @@ export const SignInView = () => {
                     disabled={pending}
                     variant={'outline'}
                     type="button"
-                    className="w-full"
+                    className="w-full cursor-pointer"
+                    onClick={() =>
+                      authClient.signIn.social({
+                        provider: 'google',
+                      })
+                    }
                   >
-                    google
+                    <FaGoogle className="text-green-700" />
                   </Button>
                   <Button
                     disabled={pending}
                     variant={'outline'}
                     type="button"
-                    className="w-full"
+                    className="w-full cursor-pointer"
+                    onClick={() =>
+                      authClient.signIn.social({
+                        provider: 'github',
+                      })
+                    }
                   >
-                    Github
+                    <FaGithub className="text-green-700" />
                   </Button>
                 </div>
                 <div className="text-center text-sm">

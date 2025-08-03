@@ -15,9 +15,11 @@ import { Input } from '@/components/ui/input';
 import { authClient } from '@/lib/auth-client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { OctagonAlertIcon } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { z } from 'zod';
 
 const formSchema = z
@@ -185,40 +187,50 @@ export const SignUpView = () => {
                     Or Continue with
                   </span>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <Button
                     disabled={pending}
                     variant={'outline'}
                     type="button"
-                    className="w-full"
+                    className="w-full cursor-pointer"
+                    onClick={() =>
+                      authClient.signIn.social({
+                        provider: 'google',
+                      })
+                    }
                   >
-                    Google
+                    <FaGoogle className="text-green-700" />
                   </Button>
                   <Button
                     disabled={pending}
                     variant={'outline'}
                     type="button"
                     className="w-full"
+                    onClick={() =>
+                      authClient.signIn.social({
+                        provider: 'github',
+                      })
+                    }
                   >
-                    Github
+                    <FaGithub className="text-green-700" />
                   </Button>
-                  <Button
+                  {/* <Button
                     disabled={pending}
                     variant={'outline'}
                     type="button"
                     className="w-full"
                   >
                     Apple
-                  </Button>
+                  </Button> */}
                 </div>
                 <div className="text-sm text-center">
                   Already have an account?{' '}
-                  <a
+                  <Link
+                    className="underline underline-offset-4"
                     href="/sign-in"
-                    className="underline hover:underline underline-offset-2"
                   >
                     Sign In
-                  </a>
+                  </Link>
                 </div>
               </div>
             </form>
